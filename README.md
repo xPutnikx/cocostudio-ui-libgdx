@@ -1,5 +1,9 @@
 # 让CocoStudio变成libgdx的UI编辑器
 
+
+support CocosStudio versions v1.0.0.0 Beta for Mac
+support CocosStudio versions v1.5.0.1 Beta for Windows
+
 ##交流Q群:341972448
 
 ### WIKI : https://github.com/121077313/cocostudio-ui-libgdx/wiki
