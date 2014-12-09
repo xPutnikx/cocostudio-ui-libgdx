@@ -7,29 +7,28 @@ package org.freyja.libgdx.cocostudio.ui.model;
  * 
  */
 public class CCOption {
-	String __type;
 	String classname;
 	String name;
-	int ZOrder;
+	int ZOrder = 0;
 	int actiontag;
-	float anchorPointX;
-	float anchorPointY;
+	float anchorPointX = 0.5F;
+	float anchorPointY = 0.5F;
 	String classType;
-	int colorB;
-	int colorG;
-	int colorR;
-	boolean flipX;
-	boolean flipY;
+	int colorB = 255;
+	int colorG = 255;
+	int colorR = 255;
+	boolean flipX = false;
+	boolean flipY = false;
 	float height;
 	boolean ignoreSize;
 	String layoutParameter;
-	int opacity;
+	int opacity = 255;
 	float positionPercentX;
 	float positionPercentY;
-	int positionType;
-	float rotation;
-	float scaleX;
-	float scaleY;
+	int positionType = 0;
+	float rotation = 0;
+	float scaleX = 1;
+	float scaleY = 1;
 	float sizePercentX;
 	float sizePercentY;
 	int sizeType;
@@ -164,14 +163,6 @@ public class CCOption {
 
 	public void setBarFileNameData(CCWidgetData barFileNameData) {
 		this.barFileNameData = barFileNameData;
-	}
-
-	public String get__type() {
-		return __type;
-	}
-
-	public void set__type(String __type) {
-		this.__type = __type;
 	}
 
 	public CCWidgetData getCharMapFileData() {

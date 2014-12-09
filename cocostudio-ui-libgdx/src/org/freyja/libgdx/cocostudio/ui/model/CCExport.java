@@ -1,8 +1,8 @@
 package org.freyja.libgdx.cocostudio.ui.model;
 
-import java.util.List;
-
 import org.freyja.libgdx.cocostudio.ui.model.animation.CCAnimation;
+
+import java.util.List;
 
 /**
  * ui json结构
@@ -27,6 +27,8 @@ public class CCExport {
 	List<String> textures;
 
 	String version;
+
+	CCWidget nodeTree;
 
 	CCWidget widgetTree;
 
@@ -70,8 +72,26 @@ public class CCExport {
 		this.textures = textures;
 	}
 
+	public CCWidget getNodeTree() {
+		if(nodeTree != null) {
+			return nodeTree;
+		}else if(widgetTree != null){
+			return widgetTree;
+		}
+		return null;
+	}
+
+	public void setNodeTree(CCWidget widgetTree) {
+		this.nodeTree = widgetTree;
+	}
+
 	public CCWidget getWidgetTree() {
-		return widgetTree;
+		if(widgetTree != null) {
+			return widgetTree;
+		}else if(nodeTree != null){
+			return nodeTree;
+		}
+		return null;
 	}
 
 	public void setWidgetTree(CCWidget widgetTree) {

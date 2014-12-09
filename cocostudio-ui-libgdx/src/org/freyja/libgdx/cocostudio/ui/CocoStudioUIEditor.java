@@ -1,37 +1,5 @@
 package org.freyja.libgdx.cocostudio.ui;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.freyja.libgdx.cocostudio.ui.model.CCExport;
-import org.freyja.libgdx.cocostudio.ui.model.CCOption;
-import org.freyja.libgdx.cocostudio.ui.model.CCWidget;
-import org.freyja.libgdx.cocostudio.ui.model.animation.CCAction;
-import org.freyja.libgdx.cocostudio.ui.model.animation.CCActionFrame;
-import org.freyja.libgdx.cocostudio.ui.model.animation.CCActionNode;
-import org.freyja.libgdx.cocostudio.ui.model.animation.CCAnimation;
-import org.freyja.libgdx.cocostudio.ui.parser.group.CCButton;
-import org.freyja.libgdx.cocostudio.ui.parser.group.CCCheckBox;
-import org.freyja.libgdx.cocostudio.ui.parser.group.CCLabelAtlas;
-import org.freyja.libgdx.cocostudio.ui.parser.group.CCPanel;
-import org.freyja.libgdx.cocostudio.ui.parser.group.CCScrollView;
-import org.freyja.libgdx.cocostudio.ui.parser.widget.CCImageView;
-import org.freyja.libgdx.cocostudio.ui.parser.widget.CCLabel;
-import org.freyja.libgdx.cocostudio.ui.parser.widget.CCLabelBMFont;
-import org.freyja.libgdx.cocostudio.ui.parser.widget.CCLoadingBar;
-import org.freyja.libgdx.cocostudio.ui.parser.widget.CCSlider;
-import org.freyja.libgdx.cocostudio.ui.parser.widget.CCTextField;
-import org.freyja.libgdx.cocostudio.ui.util.FontUtil;
-import org.freyja.libgdx.cocostudio.ui.util.StringUtil;
-import org.freyja.libgdx.cocostudio.ui.widget.TTFLabelStyle;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -40,32 +8,35 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import org.freyja.libgdx.cocostudio.ui.model.CCExport;
+import org.freyja.libgdx.cocostudio.ui.model.CCOption;
+import org.freyja.libgdx.cocostudio.ui.model.CCWidget;
+import org.freyja.libgdx.cocostudio.ui.model.animation.CCAction;
+import org.freyja.libgdx.cocostudio.ui.model.animation.CCActionFrame;
+import org.freyja.libgdx.cocostudio.ui.model.animation.CCActionNode;
+import org.freyja.libgdx.cocostudio.ui.model.animation.CCAnimation;
+import org.freyja.libgdx.cocostudio.ui.parser.group.*;
+import org.freyja.libgdx.cocostudio.ui.parser.widget.*;
+import org.freyja.libgdx.cocostudio.ui.util.FontUtil;
+import org.freyja.libgdx.cocostudio.ui.widget.TTFLabelStyle;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * CocoStudio ui 解析器.根据CocoStudio的ui编辑器生成的json文件,创建出一个对应Group.
@@ -147,6 +118,8 @@ public class CocoStudioUIEditor {
 		this.defaultFont = defaultFont;
 		parsers = new HashMap<String, BaseWidgetParser>();
 
+		addParser(new CCNode());
+
 		addParser(new CCButton());
 		addParser(new CCCheckBox());
 		addParser(new CCImageView());
@@ -220,6 +193,9 @@ public class CocoStudioUIEditor {
 	void parseAction() {
 
 		CCAnimation animation = export.getAnimation();
+		if (animation == null) {
+			return;
+		}
 		for (CCAction action : animation.getActionlist()) {
 
 			List<CCActionNode> nodes = action.getActionnodelist();
