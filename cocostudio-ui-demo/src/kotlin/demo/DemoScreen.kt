@@ -1,6 +1,4 @@
-package demo
-
-import framework.CommonScreen
+package kotlin.demo
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
@@ -10,7 +8,7 @@ import com.badlogic.gdx.InputMultiplexer
  * @author i see
  *
  */
-public class DemoScreen : CommonScreen() {
+public class DemoScreen : MyScreen() {
 
     override fun show() {
 

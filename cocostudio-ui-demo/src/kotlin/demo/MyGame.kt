@@ -1,4 +1,4 @@
-package demo
+package kotlin.demo
 
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Game

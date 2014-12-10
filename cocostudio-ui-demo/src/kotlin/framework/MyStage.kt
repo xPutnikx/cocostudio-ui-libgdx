@@ -1,4 +1,4 @@
-package framework
+package kotlin.framework
 
 
 import com.badlogic.gdx.Game
@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 
 
 
-open class MyStage(width: Float, height: Float, keepAspectRatio: Boolean) : Stage(width, height, keepAspectRatio) {
+abstract class MyStage(width: Float, height: Float, keepAspectRatio: Boolean) : Stage(width, height, keepAspectRatio) {
 
     public var game: Game
 
@@ -41,5 +41,7 @@ open class MyStage(width: Float, height: Float, keepAspectRatio: Boolean) : Stag
     public fun getScreen(): Screen {
         return game.getScreen()
     }
+
+    public abstract fun init()
 
 }

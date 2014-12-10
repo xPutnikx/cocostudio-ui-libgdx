@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: gdx.jar gdx-freetype.jar
+Main-Class: org.freyja.libgdx.cocostudio.ui.CocoStudioUIEditor
+

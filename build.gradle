@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.github.jtakakura:gradle-robovm-plugin:0.0.9'
+    }
+}
+
+allprojects {
+
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = 'cocos-ui-libgdx'
+        gdxVersion = '1.5.0'
+        roboVMVersion = '0.0.13'
+    }
+
+    repositories {
+        jcenter()
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}

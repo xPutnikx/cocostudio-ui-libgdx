@@ -1,0 +1,33 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.7
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = ["src/"]
+
+project.ext.mainClassName = "com.freyja.libgdx.cocostudio.ui.CocoStudioUIEditor"
+project.ext.assetsDir = new File("assets");
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+}
+task dist(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
+    from { configurations.compile.collect { zipTree(it) } }
+
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+}
+dist.dependsOn classes
+
+dependencies {
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile files('libs/gdx-freetype.jar')
+}

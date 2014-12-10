@@ -1,0 +1,31 @@
+apply plugin: "java"
+sourceCompatibility = 1.7
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+project.ext.mainClassName = "demo.Main"
+project.ext.assetsDir = new File("assets");
+sourceSets.main.java.srcDirs = ["src/"]
+
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+}
+task dist(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
+    from { configurations.compile.collect { zipTree(it) } }
+    from files(project.assetsDir);
+
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+}
+dist.dependsOn classes
+
+dependencies {
+    compile project(':cocostudio-ui-libgdx')
+}

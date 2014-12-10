@@ -1,4 +1,4 @@
-package framework
+package kotlin.framework
 
 
 import com.badlogic.gdx.Game
@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL10
 import com.badlogic.gdx.scenes.scene2d.Stage
+import kotlin.demo.MyGame
 
 public open class MyScreen : Screen {
 
@@ -47,4 +48,7 @@ public open class MyScreen : Screen {
         stage!!.dispose()
     }
 
+    fun getGame(): MyGame {
+        return game as MyGame
+    }
 }
